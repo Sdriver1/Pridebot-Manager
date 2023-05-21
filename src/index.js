@@ -24,6 +24,7 @@ const client = new Client({
 });
 client.commands = new Collection();
 client.commandArray = [];
+client.botStartTime = new Date();
 
 const functionFolders = fs.readdirSync(`./src/functions`);
 for (const folder of functionFolders) {
