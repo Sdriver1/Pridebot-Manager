@@ -1,29 +1,30 @@
-const { ActivityType } = require('discord.js');
+const { ActivityType } = require("discord.js");
 
 module.exports = {
-  name: 'ready',
+  name: "ready",
   once: true,
   async execute(client) {
-    
-    const isDev = process.argv.slice(2)[0] === "dev";
-    const activity = isDev
-      ? {
-          type: ActivityType.Playing,
-          text: 'with my code (Dev Work)',
-          status: 'dnd',
-        }
-      : {
-          type: ActivityType.Watching,
-          text: 'over 🌈The LGBTQ+ Community🌈',
-          status: 'online',
-        };
+    const updatePresence = async () => {
+      const guild = client.guilds.cache.get("1101740375342845952");
 
-    await client.user.setPresence({
-      status: activity.status,
-      activities: [{ type: activity.type, name: activity.text }],
-    });
+      if (guild) {
+        const userCount = guild.memberCount;
+        const formattedTotalUserCount = userCount.toLocaleString();
+        await client.user.setPresence({
+          status: "online",
+          activities: [
+            {
+              type: ActivityType.Watching,
+              name: `over the ${formattedTotalUserCount} users in Pridebot Support Server`,
+            },
+          ],
+        });
+      } else {
+        console.error("Guild not found");
+      }
+    };
 
-    console.log(isDev ? `${client.user.tag} is in development` : `${client.user.tag} is ready to serve discord.gg/pridemonth`);
+    updatePresence();
+    setInterval(updatePresence, 300000);
   },
 };
-
