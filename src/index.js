@@ -4,6 +4,7 @@ const { Client, Collection, GatewayIntentBits, Events } = require("discord.js");
 const fs = require("fs");
 const { rulesMessage } = require("./commands/moderation/rules.js");
 const { transMessage } = require("./commands/moderation/translation.js");
+const { botcommands } = require("./commands/moderation/botcommands.js");
 
 const { checkBotStatus } = require("./events/bot/statuschecker.js");
 
@@ -46,6 +47,7 @@ for (const folder of functionFolders) {
 client.on("messageCreate", async (message) => {
   rulesMessage(message, client);
   transMessage(message, client);
+  botcommands(message, client);
 });
 
 const events = {
