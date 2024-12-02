@@ -5,6 +5,7 @@ const fs = require("fs");
 const { rulesMessage } = require("./commands/moderation/rules.js");
 const { transMessage } = require("./commands/moderation/translation.js");
 const { botcommands } = require("./commands/moderation/botcommands.js");
+const { managePM2 } = require("./commands/process/terminal.js");
 
 const { checkBotStatus } = require("./events/bot/statuschecker.js");
 
@@ -48,6 +49,7 @@ client.on("messageCreate", async (message) => {
   rulesMessage(message, client);
   transMessage(message, client);
   botcommands(message, client);
+  managePM2(message, client);
 });
 
 const events = {

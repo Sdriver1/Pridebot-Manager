@@ -72,6 +72,9 @@ async function botcommands(message, client, args) {
   args =
     args || message.content.slice(mention.length).trim().split(/ +/).slice(1);
 
+    const excludedCommands = ["restart", "stop", "list"];
+    if (excludedCommands.includes(args[0]?.toLowerCase())) return;
+
   if (!args.length) {
     const embed = new EmbedBuilder()
       .setTitle("Command Categories")
@@ -108,7 +111,6 @@ async function botcommands(message, client, args) {
       const details = commandCategories[category];
 
       if (!details) {
-        await message.channel.send(`Category \`${category}\` not found.`);
         return;
       }
 

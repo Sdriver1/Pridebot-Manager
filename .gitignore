@@ -1,6 +1,7 @@
 // Bot
 .env
 node_modules
+process
 
 // Files
 package-lock.json
